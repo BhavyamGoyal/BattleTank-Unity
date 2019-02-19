@@ -1,20 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Interfaces.ServiecesInterface;
+using StateMachines;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ViewMenuUI : MonoBehaviour
 {
-    Button play;
+    public Button play;
 
     public void Start()
     {
-        play = GameObject.FindGameObjectWithTag("PlayButton").GetComponent<Button>();
-        play.gameObject.SetActive(true);
-        
+        //play = GameObject.FindGameObjectWithTag("PlayButton").GetComponent<Button>();   
     }
-    public void updateUI() {
-        ServiceUI.Instance.StartGame();
+    public void updateUI()
+    {
+       
+        if ((ServiceLocator.Instance.get<IStateManager>().GetPreviousState() is GameReplayState))
+        {
+             ServiceLocator.Instance.get<IStateManager>().ChangeState(new GameReplayState(), false);
+        }else{
+            ServiceLocator.Instance.get<IStateManager>().ChangeState(new GamePlayState(), false);
+        }
+        //Debug.Log(StateManager.Instance.previousState+" "+StateManager.Instance.currentState);
+       
     }
     public void DestroyUI()
     {

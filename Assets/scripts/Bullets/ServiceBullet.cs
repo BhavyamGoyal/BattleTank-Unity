@@ -1,43 +1,47 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Interfaces.ServiecesInterface;
+using ObjectPooling;
 using UnityEngine;
 
 
 
-public class ServiceBullet : SingletonScene<ServiceBullet>
+public class ServiceBullet : IServiceBullet
 {
-    public static List<ControllerBullet> bulletList = new List<ControllerBullet>();
+    ObjectPool<ControllerBullet> bulletPool=new ObjectPool<ControllerBullet>();
+    //public static List<ControllerBullet> bulletList = new List<ControllerBullet>();
+
     public ControllerBullet MakeBullet(BulletTypes bulletType)
     {
-        ControllerBullet temp=null;
-            switch (bulletType)
-            {
-                case BulletTypes.defaultBullet: temp=new ControllerDefaultBullet();
-                bulletList.Add(temp);
-                break;
-                                               
-                case BulletTypes.fastBullet: temp=new ControllerFastBullet();
-                bulletList.Add(temp);
+        ControllerBullet temp = null;
+        switch (bulletType)
+        {
+            default:
+                temp = bulletPool.GetFromPool<ControllerDefaultBullet>();
                 break;
 
-                case BulletTypes.explossiveBullet: temp= new ControllerExplossiveBullet();
-                bulletList.Add(temp);
+            case BulletTypes.fastBullet:
+                temp = bulletPool.GetFromPool<ControllerFastBullet>();
                 break;
 
-            }
+            case BulletTypes.explossiveBullet:
+                temp = bulletPool.GetFromPool<ControllerExplossiveBullet>();
+                break;
+        }
         temp.OnBulletDestroy += RemoveBullet;
-       // Debug.Log(bulletList.Count);
         return temp;
     }
 
 
-    public void RemoveBullet(ControllerBullet temp)
+    public void RemoveBullet(ControllerBullet bullet)
     {
-        //Debug.Log(bulletList.Count);
-       // bulletList.Remove(temp);
-        bulletList.Remove(temp);
-        
+         bullet.OnBulletDestroy -= RemoveBullet;
+        //Debug.Log("Destroying bullet");
+        // bulletList.Remove(temp);
+        //bulletList.Remove(bullet);
+        bulletPool.ReturnToPool(bullet);
+
     }
 
 }

@@ -15,6 +15,11 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
     public void Awake()
     {
+        OnInitialize();
+        
+    }
+     public virtual void OnInitialize()
+    {
         instance = FindObjectOfType<T>();
         DontDestroyOnLoad(instance);
     }

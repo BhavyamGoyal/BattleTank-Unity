@@ -7,4 +7,6 @@ public class InputData
     public float forward { get;set; }
     public bool shoot { get; set; }
     public bool boost { get;set; }
+    public int frame { get;set; }
+    
 }

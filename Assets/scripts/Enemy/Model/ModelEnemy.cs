@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using ScriptableObjects;
+
 namespace Enemy.Model
 {
     public class ModelEnemy
     {
         public ScriptableEnemy enemyObject;
         int currentHealth;
+        public int enemytype;
         public ModelEnemy(ScriptableEnemy enemyTemp)
         {
             enemyObject = enemyTemp;

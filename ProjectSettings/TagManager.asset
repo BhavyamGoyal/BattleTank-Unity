@@ -10,6 +10,13 @@ TagManager:
   - Score
   - PlayButton
   - Health
+  - AchievementUI
+  - Pause
+  - ScrollContent
+  - IndicatorPanal
+  - Indicator
+  - Ground
+  - ScrollPlaceHolder
   layers:
   - Default
   - TransparentFX
@@ -19,7 +26,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - MiniMap
   - 
   - 
   - 

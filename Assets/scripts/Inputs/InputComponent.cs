@@ -13,14 +13,15 @@ public class InputComponent
         this.controller = controller;
         //InputManager.Instance.RegisterInputComponent(this,controller.GetControls());
     }
-    public void InputUpdate(float forward,float direction,bool shoot,bool boost)
+    public void InputUpdate(InputData inputData)
     {
-        controller.Move(forward,direction);
-        if (shoot)
+        controller.Update();
+        controller.Move(inputData.forward,inputData.direction);
+        if (inputData.shoot)
         {
             controller.Shoot();
         }
-        if (boost)
+        if (inputData.boost)
         {
             controller.StartBoost();
         }
@@ -29,14 +30,6 @@ public class InputComponent
             controller.StopBoost();
         }
        //Debug.Log("Updating InputComponent");
-    }
-
-    public void Move(float horizontal,float vertical)
-    {
-        if (!controller.IsFreez())
-        {
-            controller.Move(horizontal, vertical);
-        }
     }
     
 }

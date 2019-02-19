@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using Achievements;
+using StateMachines;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,31 +8,42 @@ using UnityEngine.UI;
 
 public class ViewStartUI : MonoBehaviour
 {
-    Text score;
-    Text health;
+    [SerializeField] public Text score;
+    [SerializeField] public Text health;
+
+    public RawImage miniMap;
+
     public void Start()
     {
-        score = GameObject.FindGameObjectWithTag("Score").GetComponent<Text>();
-        health = GameObject.FindGameObjectWithTag("Health").GetComponent<Text>();
-        DestroyUI();
+
+    }
+    public void SetMiniMap(RenderTexture texture){
+        miniMap.texture=texture;
     }
 
     public void DestroyUI()
     {
+        //Debug.Log("InStartView");
+        // Destroy(this.gameObject);
         score.gameObject.SetActive(false);
         health.gameObject.SetActive(false);
+       
     }
     public void DisplayUI()
     {
+
         health.gameObject.SetActive(true);
         score.gameObject.SetActive(true);
+
     }
-    public void UpdateScore(string score)
+    public void UpdateScore(string scor)
     {
-        this.score.text = score;
+        score.text = scor;
     }
-    public void UpdateHealth(string health)
+    public void UpdateHealth(string healt)
     {
-        this.health.text = health;
+        health.text = healt;
     }
+   
+
 }

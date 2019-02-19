@@ -6,13 +6,24 @@ public class ControllerStartUI
 {
     // For Controlling the UI in the Start screen
     ViewStartUI view;
-    public ControllerStartUI()
+    public GameObject panel;
+    public ControllerStartUI(GameObject startUI, RectTransform parent)
     {
-        view = GameObject.FindObjectOfType<ViewStartUI>().GetComponent<ViewStartUI>();
+        panel = startUI;
+        GameObject obj;
+        obj = GameObject.Instantiate(panel);
+        obj.gameObject.transform.SetParent(parent);
+        view = obj.GetComponent<ViewStartUI>();
+        DisplayUI();
     }
     public void DestroyUI()
     {
         view.DestroyUI();
+        Debug.Log("InStartController");
+       // view=null;
+    }
+    public void SetMiniMap(RenderTexture texture){
+        view.SetMiniMap(texture);
     }
     public void DisplayUI()
     {

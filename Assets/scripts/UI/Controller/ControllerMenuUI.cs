@@ -8,6 +8,7 @@ public class ControllerMenuUI
     public ControllerMenuUI()
     {
         view = GameObject.FindObjectOfType<ViewMenuUI>().GetComponent<ViewMenuUI>();
+        DisplayUI();
     }
    public void DestroyUI()
     {
@@ -15,6 +16,6 @@ public class ControllerMenuUI
     }
     public void DisplayUI()
     {
-        view.DestroyUI();
+        view.DisplayUI();
     }
 }
